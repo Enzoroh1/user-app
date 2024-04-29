@@ -1,32 +1,25 @@
 import { useEffect, useState } from "react";
+import { UserList } from "./components/UserList";
 
 export const UserApp = () => {
   //  const styleLine = {div: {background: "black", fontSize: "1.5rem", color: "white"}}
-  const [users, setUsers] = useState([]);
-
-  const fetchUsers = async () => {
-    try {
-      const response = await fetch(
-        "https://jsonplaceholder.typicode.com/users"
-      );
-      const data = response.json();
-      setUsers(data);
-      console.log(data);
-    } catch (error) {
-      console.error(error);
-    }
+    const [endPoint, setendPoint] = useState("users");
+  
+  const handleFetch = () => {
+    setendPoint("comments");
   };
-  useEffect(() => {
-    fetchUsers();
-  }, []);
+
+    // mostrar en pantalla los datos de la api
+    //   useEffect(() => {
+    //     fetchUsers();
+    //   }, []);
+
   return (
     <>
       {/*<div style={styleLine.div}>UserApp</div>*/}
       <h1>User List:</h1>
-      <ul>
-        <li>Enzo</li>
-        <li>John</li>
-      </ul>
+      <UserList endPoint={endPoint} />
+      <button onClick={handleFetch}>Call Api</button>
     </>
   );
 };
